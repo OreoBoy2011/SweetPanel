@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SweetPanel</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="login-container">
+    <h1>Welcome to SweetPanel</h1>
+    <p>Enter your nickname to continue</p>
+
+    <input type="text" id="nickname" placeholder="e.g. SweetUser" />
+    <button id="enterBtn">Enter</button>
+  </div>
+
+  <script>
+    document.getElementById('enterBtn').addEventListener('click', () => {
+      const nickname = document.getElementById('nickname').value.trim();
+      if (!nickname) return alert('Please enter a nickname');
+      localStorage.setItem('nickname', nickname);
+      window.location.href = 'dashboard.html';
+    });
+  </script>
+</body>
+</html>
