@@ -1,25 +1,139 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SweetPanel</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="login-container">
-    <h1>Welcome to SweetPanel</h1>
-    <p>Enter your nickname to continue</p>
+  <!-- Login Gate -->
+  <div class="login-box" id="loginBox">
+    <h1>SweetPanel</h1>
+    <p class="subtitle">Enter your nickname to continue</p>
+    <input type="text" id="nickname" placeholder="Nickname" />
+    <button id="enterBtn">Enter Dashboard</button>
+  </div>
 
-    <input type="text" id="nickname" placeholder="e.g. SweetUser" />
-    <button id="enterBtn">Enter</button>
+  <!-- Error Screen -->
+  <div id="errorScreen" style="display: none;" class="error-box">
+    <h1>Error 104: You are not Logged in</h1>
+    <p>Please enter your nickname to access SweetPanel.</p>
+    <button onclick="location.reload()" class="back-btn">Return to Login</button>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="dashboard" style="display: none;">
+    <header>
+      <div class="header-left">
+        <h1 id="welcome"></h1>
+      </div>
+      <nav class="tab-nav-right">
+        <button class="tab-btn active" data-tab="announcements">Updates</button>
+        <button class="tab-btn" data-tab="products">Products</button>
+      </nav>
+    </header>
+
+    <section id="announcements" class="tab-content active">
+      <h2>📢 Updates</h2>
+      <div id="announcement-list"></div>
+    </section>
+
+    <section id="products" class="tab-content">
+      <h2>📦 Products</h2>
+      <div id="modules-grid"></div>
+      <p class="product-footer">
+        Want your products on here? DM <strong>oreomilkshakeboy</strong> on Discord.
+      </p>
+    </section>
+
+    <footer>
+      <p>SweetPanel v1.0 — Fast, Reliable Assets</p>
+    </footer>
   </div>
 
   <script>
+    const loginBox = document.getElementById('loginBox');
+    const dashboard = document.getElementById('dashboard');
+    const errorScreen = document.getElementById('errorScreen');
+    const nicknameInput = document.getElementById('nickname');
+    const welcomeEl = document.getElementById('welcome');
+
     document.getElementById('enterBtn').addEventListener('click', () => {
-      const nickname = document.getElementById('nickname').value.trim();
-      if (!nickname) return alert('Please enter a nickname');
+      const nickname = nicknameInput.value.trim();
+      if (!nickname) {
+        alert('Please enter a nickname');
+        return;
+      }
+      sessionStorage.setItem('nickname', nickname);
       localStorage.setItem('nickname', nickname);
-      window.location.href = 'dashboard.html';
+      loginBox.style.display = 'none';
+      dashboard.style.display = 'block';
+      initDashboard(nickname);
     });
+
+    function initDashboard(nickname) {
+      welcomeEl.textContent = `👋 Hello! Welcome to SweetPanel, ${nickname}!`;
+
+      // Tab switching
+      const tabs = document.querySelectorAll('.tab-btn');
+      const contents = document.querySelectorAll('.tab-content');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          contents.forEach(c => c.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById(tab.dataset.tab).classList.add('active');
+        });
+      });
+
+      // Announcements
+      const updates = [
+        '📢 Sweet Panel V1 has just released!',
+        '🎉 New Products are soon coming out.'
+      ];
+      const annContainer = document.getElementById('announcement-list');
+      updates.forEach(msg => {
+        const item = document.createElement('div');
+        item.className = 'announcement';
+        item.textContent = msg;
+        annContainer.appendChild(item);
+      });
+
+      // Products
+      const assets = [
+        {
+          name: 'Coffee Machine',
+          desc: 'Advanced card-based identification system.',
+          tag: 'Popular',
+          url: 'assets.pdf',
+          thumb: 'https://www.bing.com/ck/a?!&&p=1d0d2052c8132ede438580c8d8a28886e98e17623c7c4ec1cbd49be4ef17e77aJmltdHM9MTc1NjU5ODQwMA&ptn=3&ver=2&hsh=4&fclid=2a721ec3-5012-6072-01dd-0bab51f26198&u=a1L2ltYWdlcy9zZWFyY2g_cT1jb2ZmZWUrbWFjaGluZSt0aHVtYm5haWwmaWQ9Njk1REI1Mzc4MkNEMjg0ODg0RTk3MUI5QTA4MDNFNEYyRkMzQjdFNiZGT1JNPUlRRlJCQQ'
+        },
+      ];
+      const grid = document.getElementById('modules-grid');
+      assets.forEach(({ name, desc, tag, url, thumb }) => {
+        const card = document.createElement('div');
+        card.className = 'module-card';
+        card.innerHTML = `
+          <img src="${thumb}" alt="${name} Thumbnail" class="thumb" />
+          <div class="tag">${tag}</div>
+          <h3>${name}</h3>
+          <p>${desc}</p>
+          <a href="${url}" download class="download-btn">Download File</a>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // Auto-load if nickname already exists
+    const storedNickname = sessionStorage.getItem('nickname') || localStorage.getItem('nickname');
+    if (storedNickname) {
+      loginBox.style.display = 'none';
+      dashboard.style.display = 'block';
+      initDashboard(storedNickname);
+    } else {
+      loginBox.style.display = 'block';
+    }
   </script>
 </body>
 </html>
