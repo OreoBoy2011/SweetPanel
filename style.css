@@ -1,20 +1,40 @@
+/* Base Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   background: #0f0f0f;
   font-family: 'Segoe UI', sans-serif;
   color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 50px;
+  line-height: 1.6;
 }
 
-.login-container {
+/* Login Box */
+.login-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background: #1c1c1c;
   padding: 30px;
-  border-radius: 8px;
+  border-radius: 10px;
   width: 350px;
-  box-shadow: 0 0 10px rgba(0,255,255,0.1);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
   text-align: center;
+}
+
+.login-box h1 {
+  margin-bottom: 10px;
+  font-size: 1.8em;
+}
+
+.subtitle {
+  font-size: 0.9em;
+  color: #aaa;
+  margin-bottom: 10px;
 }
 
 input {
@@ -36,9 +56,177 @@ button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: background 0.3s ease;
 }
 
-#panel-content a {
-  color: #00ffff;
+button:hover {
+  background: #008080;
+}
+
+/* Header + Tabs */
+header {
+  background: #1c1c1c;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.header-left h1 {
+  font-size: 1.4em;
+}
+
+.tab-nav-right {
+  display: flex;
+  gap: 10px;
+}
+
+.tab-btn {
+  background: #2a2a2a;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.tab-btn.active {
+  background: teal;
+}
+
+/* Tab Content */
+.tab-content {
+  display: none;
+  padding: 20px;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Announcements */
+#announcements h2 {
+  margin-bottom: 10px;
+}
+
+.announcement {
+  background: #2a2a2a;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-left: 4px solid teal;
+  font-size: 0.95em;
+}
+
+/* Product Grid */
+#products h2 {
+  margin-bottom: 10px;
+}
+
+#modules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.module-card {
+  background: #1c1c1c;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+  position: relative;
+  text-align: center;
+}
+
+.module-card h3 {
+  margin-top: 10px;
+  font-size: 1.2em;
+}
+
+.module-card p {
+  font-size: 0.95em;
+  color: #ccc;
+}
+
+.download-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: teal;
+  color: white;
   text-decoration: none;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+.download-btn:hover {
+  background: #008080;
+}
+
+.tag {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #00ffff;
+  color: #000;
+  font-size: 0.75em;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.thumb {
+  width: 100%;
+  max-height: 150px;
+  object-fit: contain;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+/* Product Footer Message */
+.product-footer {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 0.9em;
+  color: #aaa;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 0.8em;
+  color: #666;
+}
+
+/* Error Page */
+.error-box {
+  text-align: center;
+  padding: 50px;
+}
+
+.error-box h1 {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.error-box p {
+  font-size: 1em;
+  color: #ccc;
+  margin-bottom: 20px;
+}
+
+.minion {
+  width: 250px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.back-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: teal;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
 }
