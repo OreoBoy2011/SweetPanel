@@ -1,3 +1,6 @@
-This is free of SweetPanel
+Please do not copy any code in here. 
 
-Please if you use it please credit Sweet (FearlessPies) as this code is all functioned by me.
+If you decide to copy any code you will need to credit me, and also please do not use my html code for any bad uses.
+
+but AVOID COPYING CODE
+You may use an inspiration for your website.
